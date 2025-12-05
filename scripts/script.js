@@ -1,64 +1,94 @@
-const navLinks = document.querySelectorAll('a.nav-link');
-navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId.startsWith('#')) {
+document.querySelectorAll('a.nav-link').forEach(link => {
+    link.addEventListener('click', function(e){
+        const href = this.getAttribute('href');
+
+        if (href && href.startsWith('#')) {
             e.preventDefault();
-            document.querySelector(targetId).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const el = document.querySelector(href);
+
+            if (el) {
+                const navHeight = document.querySelector('.navbar-custom').offsetHeight;
+                const top = el.offsetTop - (navHeight + 10);
+
+                window.scrollTo({
+                    top: top,
+                    behavior: 'smooth'
+                });
+            }
+
+            const dd = document.getElementById('loginDropdown');
+            if(dd) dd.style.display = 'none';
         }
     });
 });
 
-const fadeElements = document.querySelectorAll('.card, .accordion, form, .hero h1, .hero p');
+const fadeElements = document.querySelectorAll(
+    '.card, .service-card, .p-4, .hero h1, .hero p, #cardapio .p-4, .local-box'
+);
 
-function fadeInOnScroll() {
+function fadeInOnScroll(){
+    const windowH = window.innerHeight;
     fadeElements.forEach(el => {
-        const elementTop = el.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-
-        if (elementTop < windowHeight - 50) {
+        const rect = el.getBoundingClientRect();
+        if(rect.top < windowH - 60){
             el.style.opacity = 1;
-            el.style.transform = "translateY(0)";
+            el.style.transform = 'translateY(0)';
+            el.style.transition = 'all .7s ease';
         }
     });
 }
 
-window.addEventListener('scroll', fadeInOnScroll);
 window.addEventListener('load', () => {
     fadeElements.forEach(el => {
         el.style.opacity = 0;
-        el.style.transform = "translateY(40px)";
-        el.style.transition = "all 0.8s ease";
+        el.style.transform = 'translateY(20px)';
     });
     fadeInOnScroll();
 });
+window.addEventListener('scroll', fadeInOnScroll);
 
-const cards = document.querySelectorAll('.card');
-cards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.2)";
+document.querySelectorAll('.card, .service-card, #cardapio .p-4').forEach(card=>{
+    card.addEventListener('mouseenter', ()=> {
+        card.style.boxShadow = '0 16px 32px rgba(0,0,0,0.10)';
+        card.style.transform = 'translateY(-8px)';
     });
-    card.addEventListener('mouseleave', () => {
-        card.style.boxShadow = "";
+    card.addEventListener('mouseleave', ()=> {
+        card.style.boxShadow = '';
+        card.style.transform = '';
     });
 });
 
-const loginBtn = document.getElementById("loginBtn");
-const loginDropdown = document.getElementById("loginDropdown");
+(function(){
+    const loginBtn = document.getElementById('loginBtn');
+    const loginDropdown = document.getElementById('loginDropdown');
 
-loginBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
+    if(!loginBtn || !loginDropdown) return;
 
-    loginDropdown.style.display =
-        loginDropdown.style.display === "block" ? "none" : "block";
-});
+    loginBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        const isOpen = loginDropdown.style.display === 'block';
+        loginDropdown.style.display = isOpen ? 'none' : 'block';
+    });
 
-document.addEventListener("click", () => {
-    loginDropdown.style.display = "none";
-});
+    document.addEventListener('click', () => {
+        loginDropdown.style.display = 'none';
+    });
 
-loginDropdown.addEventListener("click", (e) => {
-    e.stopPropagation();
-});
+    loginDropdown.addEventListener('click', e => e.stopPropagation());
+})();
+
+(function(){
+    try {
+        const carouselEl = document.querySelector('#carouselLojas');
+        if(carouselEl && bootstrap && bootstrap.Carousel){
+            new bootstrap.Carousel(carouselEl, {
+                interval: 2500,
+                ride: 'carousel',
+                pause: false,
+                touch: true
+            });
+        }
+    } catch(err) {
+        console.warn('Carousel init skipped:', err);
+    }
+})();
