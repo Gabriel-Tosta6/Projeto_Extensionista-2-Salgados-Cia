@@ -1,18 +1,22 @@
-:root{
+:root {
     --brand-dark: #001b3a;
     --brand-primary: #d35400;
     --text-light: #e6e6e6;
 }
 
-*{box-sizing: border-box}
-body{
+* {
+    box-sizing: border-box;
+}
+
+body {
     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     line-height: 1.45;
     color: #222;
     background: #fff;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    padding-top: 100px;
 }
 
 .navbar-custom {
@@ -25,12 +29,8 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; 
+    width: 100%;
     z-index: 2000;
-}
-
-body {
-    padding-top: 100px;
 }
 
 .navbar-brand img {
@@ -76,6 +76,10 @@ body {
     transform: scale(1.1);
 }
 
+.cart-wrapper {
+    position: relative;
+}
+
 .cart-badge {
     background: #ff5722;
     color: white;
@@ -87,12 +91,11 @@ body {
     right: -10px;
 }
 
-.cart-wrapper {
-    position: relative;
+#home {
+    margin-top: 20px;
 }
 
-#home { margin-top: 20px; }
-.carousel-inner img{
+.carousel-inner img {
     height: 420px;
     object-fit: cover;
     width: 100%;
@@ -102,56 +105,72 @@ body {
     transition: transform 0.7s ease-in-out;
 }
 
-#cardapio .p-4{
+#cardapio .p-4 {
     border-radius: 14px;
     transition: transform .28s ease, box-shadow .28s ease;
     background: #fff;
 }
-#cardapio .p-4:hover{
+
+#cardapio .p-4:hover {
     transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-#sobre p { max-width: 900px; margin: 0 auto; color: #444; }
-#contato .form-control { border-radius: 8px; }
+#sobre p {
+    max-width: 900px;
+    margin: 0 auto;
+    color: #444;
+}
 
-/* Login dropdown */
-#loginDropdown{
-    display:none;
+#contato .form-control {
+    border-radius: 8px;
+}
+
+.login-dropdown {
+    display: none;
     position: absolute;
-    top: 62px;
+    top: 72px;
     right: 18px;
-    z-index: 2200;
+    z-index: 9999;
 }
-.login-box{
-    width: 280px;
-    background: #fff;
+
+.login-dropdown.show {
+    display: block;
+}
+
+.login-box {
+    min-width: 260px;
+    max-width: 320px;
+    background: #ffffff;
     border-radius: 12px;
-    padding: 14px;
-    border: 1px solid rgba(0,0,0,0.06);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    padding: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     animation: dropIn .18s ease;
 }
+
 @keyframes dropIn {
     from { transform: translateY(-6px); opacity: 0; }
-    to   { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-footer{ margin-top: 36px; }
+footer {
+    margin-top: 36px;
+}
 
 #localizacao iframe {
     width: 100%;
     height: 350px;
     border: none;
     border-radius: 12px;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.14);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
 }
 
 .local-box {
     background: #fff;
     padding: 16px;
     border-radius: 12px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     gap: 15px;
@@ -160,16 +179,16 @@ footer{ margin-top: 36px; }
 
 .local-box:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
 }
 
-@media (max-width: 991px){
-    #loginDropdown{ right: 12px; top: 64px; }
-    .carousel-inner img{ height: 260px; }
+@media (max-width: 991px) {
+    .login-dropdown { right: 12px; top: 64px; }
+    .carousel-inner img { height: 260px; }
 }
 
-@media (max-width: 576px){
-    .carousel-inner img{ height: 200px; }
+@media (max-width: 576px) {
+    .carousel-inner img { height: 200px; }
     .navbar .nav-link { padding: 6px 8px; font-size: 0.95rem; }
     .login-box { width: 230px; padding: 12px; }
 }
